@@ -1,0 +1,264 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  english,
+  doc]{apa6}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Analysis of Covid Cases in North Dakota and the US},
+  pdfauthor={Kevin Thompson},
+  pdflang={en-EN},
+  pdfkeywords={covid-19, SARS-coronavirus-2, time series analysis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\begin{center}\begin{threeparttable}}
+%   {\end{threeparttable}\end{center}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+\shorttitle{Covid Forecasts}
+\keywords{covid-19, SARS-coronavirus-2, time series analysis}
+\usepackage{csquotes}
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
+  \usepackage{polyglossia}
+  \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,main=english]{babel}
+\fi
+
+\title{Analysis of Covid Cases in North Dakota and the US}
+\author{Kevin Thompson\textsuperscript{}}
+\date{}
+
+
+\authornote{
+
+This project was completed in fulfillment of an assignment for a time series
+course at Southern Methodist University, though I plan to expand the scope
+of this analysis beyond the project requirements in the near future.
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{} Southern Methodist University Data Science Program}
+
+\abstract{
+The SARS-coronavirus-2 pandemic ravages the United States both economically,
+socially, and physically. Rapid, tailored responses to regional spikes in
+cases depend on our ability to forecast the future state of the pandemic.
+The inherently explosive and non-stationary behavior of a pandemic presents
+its own modelling challenges along with the many sources of measurement error
+that come from both individual and structural faults.
+
+One sentence clearly stating the \textbf{general problem} being addressed by this particular study.
+
+One sentence summarizing the main result (with the words ``\textbf{here we show}'' or their equivalent).
+
+Two or three sentences explaining what the \textbf{main result} reveals in direct comparison to what was thought to be the case previously, or how the main result adds to previous knowledge.
+
+One or two sentences to put the results into a more \textbf{general context}.
+
+Two or three sentences to provide a \textbf{broader perspective}, readily comprehensible to a scientist in any discipline.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\hypertarget{related-work}{%
+\section{Related Work}\label{related-work}}
+
+Predicting the behavior of viruses from the outbreak stage to the pandemic stage
+has been an active field of study since the SIR model was introduced
+in Kermack and McKendrick (1927). The standard SIR begins with the modeling assumptions that viruses
+behave as lifeforms do (i.e.~birth, life, reproduction, death) and that all members
+of a fixed population fall into the trichotomy expressed in the name of the model.
+At every point in time, each individual in the model is either susceptible,
+infectious, or recovered (SIR). Moreover, there is a fixed transmission and recovery rate. The SIR also assumes that the compartments in the trichotomy are ordered and that members of the population can only move in one direction. If an individual goes from infectious to recovered, they cannot be infected again.
+Along with the above assumptions, the standard SIR model is a system of three
+non-linear ordinary differential equations:
+
+\begin{align}
+  \frac{dS}{dt} &= -\beta\frac{IS}{N} \\
+  \frac{dI}{dt} &= \beta\frac{IS}{N}-\gamma{I} \\
+  \frac{dR}{dt} &= \gamma{I}
+\end{align}
+
+where S denotes the susceptible subpopulation size, I the infected subpopulation
+size, and R the recovered subpopulation size (Nadler, Wang, Yang, \& Guo, 2020). \(\gamma\) and \(\beta\) are the
+unknown recover rate and transmission rate parameters, respectively.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+\hypertarget{data}{%
+\subsection{Data}\label{data}}
+
+The models in this paper are fit using data from the Johns Hopkins University
+Coronavirus Research Center.
+
+\hypertarget{univariate-models}{%
+\subsection{Univariate Models}\label{univariate-models}}
+
+\hypertarget{multivariate-models}{%
+\subsection{Multivariate Models}\label{multivariate-models}}
+
+\hypertarget{sir-model}{%
+\subsection{SIR Model}\label{sir-model}}
+
+\hypertarget{no-modelling-of-residuals}{%
+\subsubsection{No Modelling of Residuals}\label{no-modelling-of-residuals}}
+
+\hypertarget{with-modelling-of-residuals}{%
+\subsubsection{With Modelling of Residuals}\label{with-modelling-of-residuals}}
+
+Given that the conventional time series methods like ARUMA models assume that
+time is discrete, we will have to discretize equations (1)-(3). Thankfully, this
+just leads to first differences because the differential equations are only
+first order:
+
+\begin{align}
+  \frac{dS}{dt} \approx S_{t+1} - S_{t} \\
+  \frac{dI}{dt} \approx I_{t+1} - I_{t} \\
+  \frac{dR}{dt} \approx R_{t+1} - I_{t}
+\end{align}
+
+Following Nadler et al. (2020) I will label S as the total population and R will denote the
+number of confirmed cases.
+
+\hypertarget{participants}{%
+\subsection{Participants}\label{participants}}
+
+\hypertarget{material}{%
+\subsection{Material}\label{material}}
+
+\hypertarget{procedure}{%
+\subsection{Procedure}\label{procedure}}
+
+\hypertarget{data-analysis}{%
+\subsection{Data analysis}\label{data-analysis}}
+
+We use Nadler et al. (2020).
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+\newpage
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-kermack}{}%
+Kermack, W. O., \& McKendrick, A. G. (1927). A contribution to the mathematical theory of epidemics. \emph{Proceedings of the Royal Society A}, \emph{115}(772), 700--721. \url{https://doi.org/10.1098/rspa.1927.00118}
+
+\leavevmode\hypertarget{ref-assim}{}%
+Nadler, P., Wang, S., Yang, X., \& Guo, Y. (2020). An epidemiological modelling approach for covid-19 via data assimilation. \emph{European Journal of Epidemiology}, \emph{35}(8), 749--761. \url{https://doi.org/10.1007/s10654-020-00676-7}
+
+\endgroup
+
+
+\end{document}
